@@ -9,7 +9,7 @@ const DUMMY_PLACES = [
     description: 'One of the most famous sky scrapers in the world!',
     imageUrl: 'https://lh5.googleusercontent.com/p/AF1QipNVlM5lo7fIJrmvjN4EOrTMiQjDgDyTfw7ATdV6=w408-h272-k-no',
     address: '20 W 34th St., New York, NY 10001, United States',
-    lcoation: { lat: '40.7484405' , lng: '-73.9878531' },
+    location:  { lat: 40.7484405, lng : -73.9856644 },
     creator: 'u1',
   },
    {
@@ -18,7 +18,7 @@ const DUMMY_PLACES = [
     description: 'One of the most famous sky scrapers in the world!',
     imageUrl: 'https://lh5.googleusercontent.com/p/AF1QipNVlM5lo7fIJrmvjN4EOrTMiQjDgDyTfw7ATdV6=w408-h272-k-no',
     address: '20 W 34th St., New York, NY 10001, United States',
-    lcoation: { lat: '40.7484405' , lng: '-73.9878531' },
+    location:  { lat: -25.344, lng : 131.031 },
     creator: 'u2',
   }
 ]
