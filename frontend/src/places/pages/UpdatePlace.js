@@ -1,33 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Button from "../../shared/components/FormElements/Button";
+
 import Input from "../../shared/components/FormElements/Input";
-import { useForm } from "../../shared/Hooks/form-hook";
+import Button from "../../shared/components/FormElements/Button";
 import {
-  VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
+  VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
+
+import { useForm } from "../../shared/Hooks/form-hook";
 import "./PlaceForm.css";
 
 const DUMMY_PLACES = [
   {
     id: "p1",
-    title: "Empire state building",
+    title: "Empire State Building",
     description: "One of the most famous sky scrapers in the world!",
     imageUrl:
-      "https://lh5.googleusercontent.com/p/AF1QipNVlM5lo7fIJrmvjN4EOrTMiQjDgDyTfw7ATdV6=w408-h272-k-no",
-    address: "20 W 34th St., New York, NY 10001, United States",
-    location: { lat: 40.7484405, lng: -73.9856644 },
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg",
+    address: "20 W 34th St, New York, NY 10001",
+    location: {
+      lat: 40.7484405,
+      lng: -73.9878584,
+    },
     creator: "u1",
   },
   {
     id: "p2",
-    title: "Empire state building",
+    title: "Empire State Building",
     description: "One of the most famous sky scrapers in the world!",
     imageUrl:
-      "https://lh5.googleusercontent.com/p/AF1QipNVlM5lo7fIJrmvjN4EOrTMiQjDgDyTfw7ATdV6=w408-h272-k-no",
-    address: "20 W 34th St., New York, NY 10001, United States",
-    location: { lat: -25.344, lng: 131.031 },
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg",
+    address: "20 W 34th St, New York, NY 10001",
+    location: {
+      lat: 40.7484405,
+      lng: -73.9878584,
+    },
     creator: "u2",
   },
 ];
@@ -35,8 +43,6 @@ const DUMMY_PLACES = [
 const UpdatePlace = () => {
   const [isLoading, setIsLoading] = useState(true);
   const placeId = useParams().placeId;
-
-  const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId);
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -52,27 +58,31 @@ const UpdatePlace = () => {
     false
   );
 
-  const placeUpdateSubmitHandler = (e) => {
-    e.preventDefault();
-    console.log(formState.inputs);
-  };
+  const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId);
 
   useEffect(() => {
-    setFormData(
-      {
-        title: {
-          value: identifiedPlace.title,
-          isValid: true,
+    if (identifiedPlace) {
+      setFormData(
+        {
+          title: {
+            value: identifiedPlace.title,
+            isValid: true,
+          },
+          description: {
+            value: identifiedPlace.description,
+            isValid: true,
+          },
         },
-        description: {
-          value: identifiedPlace.description,
-          isValid: true,
-        },
-      },
-      true
-    );
+        true
+      );
+    }
     setIsLoading(false);
   }, [setFormData, identifiedPlace]);
+
+  const placeUpdateSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(formState.inputs);
+  };
 
   if (!identifiedPlace) {
     return (
@@ -82,7 +92,7 @@ const UpdatePlace = () => {
     );
   }
 
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <div className="center">
         <h2>Loading...</h2>
@@ -91,14 +101,14 @@ const UpdatePlace = () => {
   }
 
   return (
-    <form onSubmit={placeUpdateSubmitHandler}>
+    <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
       <Input
         id="title"
         element="input"
         type="text"
         label="Title"
         validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid title"
+        errorText="Please enter a valid title."
         onInput={inputHandler}
         initialValue={formState.inputs.title.value}
         initialValid={formState.inputs.title.isValid}
@@ -106,16 +116,15 @@ const UpdatePlace = () => {
       <Input
         id="description"
         element="textarea"
-        type="text"
         label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]}
-        errorText="Please enter a valid description (min. 5 characters)"
+        errorText="Please enter a valid description (min. 5 characters)."
         onInput={inputHandler}
         initialValue={formState.inputs.description.value}
         initialValid={formState.inputs.description.isValid}
       />
       <Button type="submit" disabled={!formState.isValid}>
-        Update Place
+        UPDATE PLACE
       </Button>
     </form>
   );
