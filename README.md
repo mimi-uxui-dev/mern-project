@@ -1,9 +1,16 @@
 # mern-project
 ### Frontend
 Here's what I have convered so far: 
-* Reactjs custom shared UI components
+* React custom shared UI components
+* React hooks: 
+    * useState
+    * useEffect
+    * useRef
+    * useReduce
+    * useCallback
 * React-router-dom 
 * React portals
 * Modal component
-* Custom map component using **Google maps javascript sdk**
-*
+* Custom map component using **Google maps Javascript SDK**
+* Custom input validation
+* Custom Hooks
