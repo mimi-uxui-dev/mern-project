@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "../../../shared/components/FormElements/Button";
 import Card from "../../../shared/components/UIElements/Card";
 import Map from "../../../shared/components/UIElements/Map";
 import Modal from "../../../shared/components/UIElements/Modal";
+import { AuthContext } from "../../../shared/context/auth-context";
 import "./PlaceItem.css";
 
 const PlaceItem = (props) => {
+  const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -55,7 +57,7 @@ const PlaceItem = (props) => {
           <p>Do you want to preceed and delete this place?</p>
         </div>
       </Modal>
-      <li className="place_item">
+      <li className="place_item center">
         <Card className="place-item__content">
           <div className="place_item__image">
             <img src={props.image} alt={props.title} />
@@ -69,10 +71,14 @@ const PlaceItem = (props) => {
             <Button onClick={openMapHandler} inverse>
               View on Map
             </Button>
-            <Button to={`/places/${props.id}`}>Edit</Button>
-            <Button danger onClick={openDeleteWarningHandler}>
-              delete
-            </Button>
+            {auth.isLoggedIn && (
+              <Button to={`/places/${props.id}`}>Edit</Button>
+            )}
+            {auth.isLoggedIn && (
+              <Button danger onClick={openDeleteWarningHandler}>
+                delete
+              </Button>
+            )}
           </div>
         </Card>
       </li>
