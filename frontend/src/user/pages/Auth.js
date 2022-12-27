@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-
 import { useForm } from "../../shared/Hooks/form-hook";
 import Card from "../../shared/components/UIElements/Card";
 import Input from "../../shared/components/FormElements/Input";
@@ -10,7 +9,6 @@ import {
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
 import { AuthContext } from "../../shared/context/auth-context";
-
 import "./Auth.css";
 
 const Auth = () => {
