@@ -15,14 +15,13 @@ import Auth from "./user/pages/Auth";
 import { AuthContext } from "./shared/context/auth-context";
 
 const App = () => {
-  const [LoggedIn, setLoggedIn] = useState(false);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const login = useCallback(() => {
-    setLoggedIn(true);
+    setIsLoggedIn(true);
   }, []);
 
   const logout = useCallback(() => {
-    setLoggedIn(false);
+    setIsLoggedIn(false);
   }, []);
 
   return (
