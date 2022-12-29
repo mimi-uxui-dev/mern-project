@@ -1,7 +1,7 @@
 const HttpError = require("../models/http-error");
 const uuid = require("uuid/v4");
 
-const DUMMY_PLACES = [
+let DUMMY_PLACES = [
   {
     id: "p1",
     title: "Empire State Building",
@@ -20,7 +20,7 @@ const getPlaceById = (req, res, next) => {
   const place = DUMMY_PLACES.find((p) => p.id === placeId);
 
   if (!place) {
-    throw new HttpErrorror("Could not find a place for the provided id.", 404);
+    throw new HttpError("Could not find a place for the provided id.", 404);
   }
 
   res.json({ place });
@@ -68,7 +68,11 @@ const updatePlace = (req, res, next) => {
   res.status(200).json({ place: updatePlace });
 };
 
-const deletePlace = (req, res, next) => {};
+const deletePlace = (req, res, next) => {
+  const placeId = req.params.pid;
+  DUMMY_PLACES = DUMMY_PLACES.filter((p) => p.id !== placeId);
+  res.status(200).json({ message: "Deleted Places." });
+};
 
 exports.getPlaceById = getPlaceById;
 exports.getPlaceByUserId = getPlaceByUserId;
