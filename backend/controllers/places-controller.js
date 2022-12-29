@@ -62,6 +62,7 @@ const getPlacesByUserId = (req, res, next) => {
 
 const createPlace = (req, res, next) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     console.log(errors);
     throw new HttpError("Invalid inputs passed, please check your data", 422);
@@ -84,6 +85,13 @@ const createPlace = (req, res, next) => {
 };
 
 const updatePlace = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    throw new HttpError("Invalid inputs passed, please check your data", 422);
+  }
+
   const { title, description } = req.body;
   const placeId = req.params.pid;
 
@@ -93,7 +101,7 @@ const updatePlace = (req, res, next) => {
   updatePlace.title = title;
   updatePlace.description = description;
 
-  DUMMY_PLACES[placeId] = updatePlace;
+  DUMMY_PLACES[placeIndex] = updatePlace;
 
   res.status(200).json({ place: updatePlace });
 };
